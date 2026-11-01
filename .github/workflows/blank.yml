@@ -1,0 +1,72 @@
+import tkinter as tk
+from tkinter import messagebox
+import time
+
+class VirtualPCApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Virtual PC - RTX 3060 Edition")
+        self.root.geometry("650x500")
+        self.root.config(bg="#1e1e1e")
+        self.root.resizable(False, False)
+
+        # Título principal
+        title_label = tk.Label(root, text="💻 Virtual PC Dashboard (GitHub Edition)", 
+                               font=("Arial", 16, "bold"), fg="#00ffcc", bg="#1e1e1e")
+        title_label.pack(pady=15)
+
+        # Marco de especificaciones
+        specs_frame = tk.LabelFrame(root, text=" Especificaciones del Hardware ", 
+                                    font=("Arial", 11, "bold"), fg="#ffffff", bg="#2d2d2d", bd=2)
+        specs_frame.pack(fill="both", expand="yes", padx=20, pady=10)
+
+        specs = [
+            ("🧠 Memoria RAM:", "32.0 GB DDR4 (3200 MHz)"),
+            ("💾 Almacenamiento:", "1.0 TB NVMe M.2 SSD"),
+            ("🎮 Tarjeta Gráfica:", "NVIDIA GeForce RTX 3060 (12GB VRAM)"),
+            ("⚡ Procesador (CPU):", "AMD Ryzen 7 5800X 8-Core Processor"),
+            ("🖥️ Sistema Operativo:", "VirtualOS x64 (Build 2026)"),
+            ("🌐 Estado de Red:", "Conectado a GitHub Cloud (1 Gbps)")
+        ]
+
+        for i, (label_text, value_text) in enumerate(specs):
+            lbl_name = tk.Label(specs_frame, text=label_text, font=("Arial", 10, "bold"), fg="#aaaaaa", bg="#2d2d2d", anchor="w")
+            lbl_name.grid(row=i, column=0, sticky="w", padx=15, pady=6)
+            
+            lbl_val = tk.Label(specs_frame, text=value_text, font=("Arial", 10), fg="#00ffcc", bg="#2d2d2d", anchor="w")
+            lbl_val.grid(row=i, column=1, sticky="w", padx=15, pady=6)
+
+        # Marco de controles / botones
+        control_frame = tk.Frame(root, bg="#1e1e1e")
+        control_frame.pack(fill="x", padx=20, pady=15)
+
+        btn_status = tk.Button(control_frame, text="Verificar Rendimiento", bg="#007acc", fg="white", 
+                               font=("Arial", 10, "bold"), command=self.check_performance)
+        btn_status.pack(side="left", expand=True, fill="x", padx=5)
+
+        btn_reboot = tk.Button(control_frame, text="Reiniciar Entorno", bg="#d9534f", fg="white", 
+                               font=("Arial", 10, "bold"), command=self.reboot_pc)
+        btn_reboot.pack(side="right", expand=True, fill="x", padx=5)
+
+        # Barra de estado inferior
+        self.status_bar = tk.Label(root, text="Estado: PC Virtual lista y operativa.", 
+                                   font=("Arial", 9, "italic"), fg="#888888", bg="#1e1e1e", anchor="w")
+        self.status_bar.pack(fill="x", padx=20, pady=5)
+
+    def check_performance(self):
+        self.status_bar.config(text="Estado: Analizando componentes... ¡Todo al 100%!")
+        messagebox.showinfo("Rendimiento Óptimo", 
+                            "🚀 ¡La PC Virtual está volando!\n- RTX 3060: Temperatura estable (45°C)\n- RAM: 8.4 GB / 32 GB en uso\n- SSD: 240 GB / 1 TB ocupado")
+
+    def reboot_pc(self, event=None):
+        self.status_bar.config(text="Estado: Reiniciando sistema virtual...")
+        self.root.update()
+        time.sleep(1)
+        self.status_bar.config(text="Estado: PC Virtual reiniciada con éxito.")
+        messagebox.showinfo("Reinicio", "El sistema virtual se ha reiniciado correctamente.")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = VirtualPCApp(root)
+    root.mainloop()
+    
